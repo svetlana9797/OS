@@ -1,0 +1,37 @@
+#include<stdio.h>                                                                     
+#include<stdlib.h>                                                                    
+#include<fcntl.h>                                                                     
+                                                                                      
+int main(int argc, char *argv[])                                                      
+{                                                                                     
+  if(argc<3)                                                                          
+  {                                                                                   
+    printf("not enough arguments!");                                                  
+   exit(-1);                                                                          
+  }                                                                                   
+                                                                                      
+ int fd1=open("file",O_WRONLY|O_CREAT,0775);                                          
+                                                                                      
+ if(fd1==-1)                                                                          
+  {                                                                                   
+   printf("Problem opening file!");                                                   
+   exit(-1);                                                                          
+  }                                                                                   
+
+ int pid=fork();                                                                      
+ if(pid==0)//child                                                                    
+ {                                                                                    
+  int status;                                                                         
+  wait(&status);                                                                      
+  if(status==0)                                                                       
+    write(fd1,"bar",3);                                                               
+
+}                                                                                     
+ else//parent                                                                         
+ {                                                                                    
+  write(fd1,"foo",3);                                                                 
+ }                                                                                    
+                                                                                      
+ close(fd1);                                                                          
+return 0;                                                                             
+}      
