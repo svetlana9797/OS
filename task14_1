@@ -1,0 +1,20 @@
+#include<stdio>                                                                       
+#include<fcntl>                                                                       
+                                                                                      
+int main(int argc, char *argv[])                                                      
+{                                                                                     
+  int proc_id=fork();                                                                 
+  if(proc_id!=0)                                                                      
+  {                                                                                   
+    int status;                                                                       
+    wait(&status);                                                                    
+
+    if(status==0)                                                                     
+     printf("%s\n",argv[1]);                                                          
+  }                                                                                   
+  else                                                                                
+  {                                                                                   
+    execllp(arg[1]);                                                                  
+    exit(-1);                                                                         
+  }                                                                                   
+}       
