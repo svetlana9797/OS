@@ -1,0 +1,3 @@
+mv $1 newname                                                                         
+mv $2 $1                                                                              
+mv newname $3  
