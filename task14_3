@@ -1,0 +1,50 @@
+#include<stdio.h>                                                                     
+#include<stdlib.h>                                                                    
+#include<fcntl.h>                                                                     
+                                                                                      
+int main(int argc, char *argv[])                                                      
+{                                                                                     
+ if(argc<2) //check if we have enough arguments                                       
+  {                                                                                   
+    printf("Not enough arguments!");                                                  
+    exit(-1);                                                                         
+  }                                                                                   
+
+  int pid=fork();                                                                     
+
+  if(pid==0) //child proccess                                                         
+  {                                                                                   
+   int fd1=open(argv[1],O_WRONLY|O_CREAT|O_TRUNC, 0775); //opens the file for writing 
+
+    if(fd1==-1) //check if file has opened                                            
+     {                                                                                
+       printf("Cannot open file!!");                                                  
+       exit(-1);                                                                      
+     }                                                                                
+                                                                                      
+  write(fd1,"foobar",6);                                                              
+                                                                                      
+  close(fd1);                                                                         
+  }                                                                                   
+                                                                                      
+  else //parent proccess                                                              
+  {                                                                                   
+    int fd2=open(argv[1],O_RDONLY);                                                   
+
+    if(fd2==-1)//check if file has opened                                             
+     {                                                                                
+       printf("Cannot open file!");                                                   
+       exit(-1);                                                                      
+     }                                                                                
+
+    char buff[3];                                                                     
+
+    while(read(fd2,buff,1))                                                           
+    {                                                                                 
+      printf("%s ",buff);//prints buff and after a space                              
+    }                                                                                 
+
+   close(fd2);                                                                        
+  }                                                                                   
+return 0;                                                                             
+}      
