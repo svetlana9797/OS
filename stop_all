@@ -1,0 +1,7 @@
+br =`ps -u $1|wc -l`                                                                  
+echo -n Broqt e                                                                       
+echo $br                                                                              
+proc=`ps -u|cut -f2 -d " "`                                                           
+for each in $proc                                                                     
+do kill -9 $proc                                                                      
+done  
