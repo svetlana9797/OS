@@ -1,0 +1,36 @@
+#include<stdio.h>                                                                     
+#include<stdlib.h>                                                                    
+#include<fcntl.h>                                                                     
+                                                                                      
+int main(int argc, char *argv[])                                                      
+{                                                                                     
+ if(argc<3)                                                                           
+ {                                                                                    
+  printf("Not enough arguments!!");                                                   
+  exit(-1);                                                                           
+ }                                                                                    
+                                                                                      
+ int pid=fork();                                                                      
+ if(pid==0) //child                                                                   
+ {                                                                                    
+  int status;                                                                         
+  wait(&status);                                                                      
+  if(status==0)//if the process finished                                              
+  {                                                                                   
+   execlp(argv[2],argv[2],NULL);//execute the second program                          
+  }                                                                                   
+                                                                                      
+  else                                                                                
+  {                                                                                   
+   printf("Problem!");                                                                
+   exit(-1);                                                                          
+  }                                                                                   
+ }                                                                                    
+                                                                                      
+ else //parent                                                                        
+ {                                                                                    
+  execlp(arg[1],arg[1],NULL);//executing the first program                            
+  exit(-1); //if the program executes this will not be performed                      
+ }                                                                                    
+ return 0;                                                                            
+}     
