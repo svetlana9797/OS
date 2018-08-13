@@ -1,0 +1,6 @@
+echo vuvedi niz                                                                       
+read niz                                                                              
+for each in $@                                                                        
+do x=`grep $niz $each|wc -l`                                                          
+  echo "$each has $x meetings"                                                        
+done  
